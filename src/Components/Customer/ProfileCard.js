@@ -48,7 +48,7 @@ function ProfileCard() {
         {/* for movie history */}
         <div className=' flex flex-col '>
             <div className="flex gap-2">
-                <button className="bg-primary-500 border rounded-md text-black py-1 px-2">Upcoming(1)</button>
+                <button className="bg-primary border rounded-md text-black py-1 px-2">Upcoming(1)</button>
                 <button className="text-white  rounded-md py-1 px-2">History(2)</button>
             </div>
 
@@ -72,7 +72,7 @@ function ProfileCard() {
                         <span>Seats C4,C5</span>
 
                     </div>
-                    <button className="ml-120 h-7 text-sm rounded-xl bg-green-950 text-primary-500 border border-primary-500 px-2 ">Upcoming</button>
+                    <button className="ml-120 h-7 text-sm rounded-xl bg-primary text-white border border-primary px-2 ">Upcoming</button>
                 </div>
                 <hr className="w-full border-t border-gray-500 my-4" />
 

@@ -1,4 +1,4 @@
-import ProfileCard from '@/Components/ProfileCard'
+import ProfileCard from '@/Components/Customer/ProfileCard'
 import React from 'react'
 
 function profilePage() {

@@ -1,8 +1,9 @@
 import React from "react";
 import { Ticket } from "lucide-react";
-import Link from "next/link";
 import { HOME_ROUTE } from "@/Constants/routes";
 import Image from "next/image";
+import { LoadingBoundaryProvider } from "next/dist/client/components/layout-router";
+import LogoButton from "./LogoButton";
 
 function Footer() {
   return (
@@ -11,20 +12,8 @@ function Footer() {
       <hr className="w-full border-t border-gray-500 my-4" />
       <section className="flex justify-between  max-w-7xl mx-auto px-4 ">
         <div className="">
-          <div className="flex gap-2">
-            {/* Logo */}
-            <Link
-              href={HOME_ROUTE}
-              className="bg-primary-500 w-10 h-10 rounded-lg flex items-center justify-center"
-            >
-              <Ticket className="w-5 h-5 text-black" />
-            </Link>
-            <Link href={HOME_ROUTE} className="flex items-center space-x-3">
-              <span className="self-center text-2xl font-semibold whitespace-nowrap">
-                OMX <span className="text-primary-500">Cinemas</span>
-              </span>
-            </Link>
-          </div>
+          <LogoButton />
+
           <div className="text-sm text-gray-500 flex flex-col my-5 gap-3">
             <span>Nepal&apos;s premier cinema experience.</span>
             <span>Book tickets, enjoy the show.</span>
@@ -71,14 +60,15 @@ function Footer() {
 
       {/* for lower section */}
       <hr className="w-full border-t border-gray-500 my-4" />
-      <section className="max-w-7xl mx-auto my-2 px-4 flex justify-between" >
+      <section className="max-w-7xl mx-auto my-2 px-4 flex justify-between">
         <div className=" text-sm text-gray-400">
           {" "}
           © {new Date().getFullYear()} OMX Cinemas Pvt. Ltd. All rights
           reserved.
         </div>
         <div className="flex gap-2">
-          <Image className=""
+          <Image
+            className=""
             src="/images/Hall.png"
             height={30}
             width={30}
@@ -86,8 +76,7 @@ function Footer() {
           />
 
           <div className="text-sm text-gray-500  flex gap-3">
-            <span>  eSewa · Khalti · FonePay</span>
-         
+            <span> eSewa · Khalti · FonePay</span>
           </div>
         </div>
       </section>
