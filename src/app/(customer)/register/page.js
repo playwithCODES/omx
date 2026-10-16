@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Asterisk, LoaderCircle } from "lucide-react";
 import { LOGIN_ROUTE } from "@/Constants/routes";
+import { registerUrl } from "@/lib/apiEndpoints";
 
 export default function RegisterPage() {
   const router = useRouter();
