@@ -1,7 +1,26 @@
-import ProfileCard from '@/Components/Customer/ProfileCard'
-import React from 'react'
+"use client";
+import ProfileCard from '@/Components/Customer/profile/ProfileCard'
+import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react'
 
-function profilePage() {
+ function ProfilePage() {
+  const router=useRouter();
+  const [isCheckingAuth, setIsCheckingAuth]=useState(true);
+
+useEffect(() => {
+  const token = sessionStorage.getItem("omx_admin_token");
+
+  if (!token) {
+    router.replace("/");
+    return;
+  }
+
+  const frame = requestAnimationFrame(() => {
+    setIsCheckingAuth(false);
+  });
+
+  return () => cancelAnimationFrame(frame);
+}, [router]);
   return (
     <div>
         <ProfileCard/>
@@ -10,4 +29,4 @@ function profilePage() {
   )
 }
 
-export default profilePage
+export default ProfilePage

@@ -3,12 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import {
-  Asterisk,
-  Eye,
-  EyeOff,
-  LoaderCircle,
-} from "lucide-react";
+import { Asterisk, Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { loginUrl } from "@/lib/apiEndpoints";
 import { FORGOT_PASSWORD, REGISTER_ROUTE } from "@/Constants/routes";
 
@@ -35,13 +30,19 @@ export default function LoginPage() {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
+      const responseText = await response.text();
+
+      let data;
+
+      try {
+        data = JSON.parse(responseText);
+      } catch {
+        data = responseText;
+      }
 
       if (!response.ok) {
         throw new Error(
-          typeof data === "string"
-            ? data
-            : data.message || "Login failed.",
+          typeof data === "string" ? data : data.message || "Login failed.",
         );
       }
 
@@ -61,6 +62,7 @@ export default function LoginPage() {
           roles: data.roles,
         }),
       );
+      window.dispatchEvent(new Event("omx-auth-change"));
 
       // Both customers and admins return to the customer homepage.
       router.replace("/");
@@ -85,10 +87,7 @@ export default function LoginPage() {
               className="mb-2 block text-base text-[#e5e7eb]"
             >
               Email
-              <Asterisk
-                size={12}
-                className="ml-0.5 inline text-red-500"
-              />
+              <Asterisk size={12} className="ml-0.5 inline text-red-500" />
             </label>
 
             <input
@@ -108,10 +107,7 @@ export default function LoginPage() {
               className="mb-2 block text-base text-[#e5e7eb]"
             >
               Password
-              <Asterisk
-                size={12}
-                className="ml-0.5 inline text-red-500"
-              />
+              <Asterisk size={12} className="ml-0.5 inline text-red-500" />
             </label>
 
             <div className="relative">

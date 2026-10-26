@@ -1,3 +1,5 @@
+"use client";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Ticket, User } from "lucide-react";
 import { ADMIN_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE } from "@/Constants/routes";
@@ -30,6 +32,20 @@ const Header = () => {
     },
   ];
 
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const updateUser = () => {
+      const savedUser = sessionStorage.getItem("omx_admin_user");
+      setUser(savedUser ? JSON.parse(savedUser) : null);
+    };
+    updateUser();
+    window.addEventListener("omx-auth-change", updateUser);
+    return () => {
+      window.removeEventListener("omx-auth-change", updateUser);
+    };
+  }, []);
+  console.log("user", user);
+
   return (
     <header className="dark:bg-black text-black dark:text-white shadow-xl dark:shadow-2xl  border-gray-700">
       <nav className="max-w-7xl mx-auto px-4 ">
@@ -55,20 +71,25 @@ const Header = () => {
               <option value="pokhara">Pokhara</option>
               <option value="lalitpur">Lalitpur</option>
             </select>
-            <div>
+
+            {user && user.roles?.includes("ADMIN") && (
+              <Link href={ADMIN_ROUTE}>
+                <button className="bg-primary justify-between items-center px-3 py-1 rounded-sm text-white dark:text-white">
+                  Admin
+                </button>
+              </Link>
+            )}
+            {user && (
               <Link href={PROFILE_ROUTE}>
-                {" "}
                 <User />
               </Link>
-            </div>
-            <Link href={ADMIN_ROUTE}>
-              <button className="bg-primary justify-between items-center px-3 py-1 rounded-sm text-white dark:text-white">
-                Admin
-              </button>
-            </Link>
-            <Link href={LOGIN_ROUTE}>
-              <button>Login</button>
-            </Link>
+            )}
+
+            {!user && (
+              <Link href={LOGIN_ROUTE}>
+                <button>Login</button>
+              </Link>
+            )}
           </div>
         </div>
       </nav>
